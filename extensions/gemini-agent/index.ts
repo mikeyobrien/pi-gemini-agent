@@ -134,16 +134,28 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand("gemini", {
-    description: "Run Gemini CLI in agent mode (YOLO)",
+    description: "Run Gemini CLI in agent mode (YOLO). Supports --model <id>.",
     handler: async (args, ctx) => {
-      const task = args.trim();
+      let task = args.trim();
       if (!task) {
-        ctx.ui.notify("Usage: /gemini <task>", "error");
+        ctx.ui.notify("Usage: /gemini [--model <id>] <task>", "error");
         return;
       }
 
-      ctx.ui.notify("Starting Gemini Agent...", "info");
-      pi.sendUserMessage(`Run gemini_agent with this task: ${task}`);
+      let model: string | undefined;
+      const modelMatch = task.match(/(?:--model|-m)\s+(\S+)/);
+      if (modelMatch) {
+        model = modelMatch[1];
+        task = task.replace(modelMatch[0], "").trim();
+      }
+
+      if (!task) {
+        ctx.ui.notify("Usage: /gemini [--model <id>] <task>", "error");
+        return;
+      }
+
+      ctx.ui.notify(`Starting Gemini Agent${model ? ` (${model})` : ""}...`, "info");
+      pi.sendUserMessage(`Run gemini_agent with this task: "${task}"${model ? `, model: "${model}"` : ""}`);
     }
   });
 }
