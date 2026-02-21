@@ -12,6 +12,7 @@ This extension integrates the **Gemini CLI Agent Mode** directly into the [Pi co
 ## Prerequisites
 
 - **[Pi Coding Agent](https://github.com/badlogic/pi-mono)** installed and configured.
+- **[Pi Subagents](https://github.com/nicobailon/pi-subagents)** installed (for chaining features).
 - **[Gemini CLI](https://github.com/google/gemini-cli)** installed and authenticated.
 
 ## Agent Chaining
