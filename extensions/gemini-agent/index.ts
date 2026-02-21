@@ -32,13 +32,6 @@ export default function (pi: ExtensionAPI) {
     }
   });
 
-  pi.on("before_agent_start", (event) => {
-    const hint = "\n\n[Capability Hint] You have access to the `gemini_agent` tool. Use it to delegate complex, multi-file, or autonomous tasks that require a full agentic loop (like refactoring or deep research). It is often more efficient than doing multi-file edits manually.";
-    return {
-      systemPrompt: event.systemPrompt + hint
-    };
-  });
-
   pi.registerTool({
     name: "gemini_agent",
     label: "Gemini Agent",
