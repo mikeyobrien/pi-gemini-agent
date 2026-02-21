@@ -1,0 +1,10 @@
+{
+  "name": "pi-gemini-agent",
+  "version": "1.0.0",
+  "description": "Gemini Agent extension for Pi",
+  "main": "index.ts",
+  "dependencies": {
+    "@mariozechner/pi-coding-agent": "^0.54.0",
+    "@sinclair/typebox": "^0.32.20"
+  }
+}
