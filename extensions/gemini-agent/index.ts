@@ -32,10 +32,17 @@ export default function (pi: ExtensionAPI) {
     }
   });
 
+  pi.on("before_agent_start", (event) => {
+    const hint = "\n\n[Capability Hint] You have access to the `gemini_agent` tool. Use it to delegate complex, multi-file, or autonomous tasks that require a full agentic loop (like refactoring or deep research). It is often more efficient than doing multi-file edits manually.";
+    return {
+      systemPrompt: event.systemPrompt + hint
+    };
+  });
+
   pi.registerTool({
     name: "gemini_agent",
     label: "Gemini Agent",
-    description: "Run Gemini CLI in agent mode (YOLO) to solve a task. Best for complex autonomous tasks like multi-file refactoring or research.",
+    description: "Delegates a complex autonomous task to the Gemini CLI Agent. Use this for multi-file refactoring, deep research, or when the user asks for 'agent mode' or 'Gemini'.",
     parameters: Type.Object({
       task: Type.String({ description: "The task to perform" }),
       cwd: Type.Optional(Type.String({ description: "The working directory for the agent (defaults to current directory)" })),
